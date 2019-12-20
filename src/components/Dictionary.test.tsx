@@ -3,12 +3,12 @@ import { render } from "@testing-library/react";
 import Dictionary from "./Dictionary";
 import { MemoryRouter } from "react-router-dom";
 
-test("renders learn react link", () => {
+test("renders Dictionary component", () => {
   const { getByText } = render(
     <MemoryRouter initialEntries={["/dictionaryId"]}>
       <Dictionary />
     </MemoryRouter>
   );
-  const linkElement = getByText(/Dictionary/i);
-  expect(linkElement).toBeInTheDocument();
+  const textElement = getByText(/Dictionary/i);
+  expect(textElement).toBeInTheDocument();
 });

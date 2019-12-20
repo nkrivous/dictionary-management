@@ -1,11 +1,13 @@
 import React from "react";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
-import Overwiew from "../pages/overview/components/Overview";
-import Dictionary from "../pages/dictionary/conponents/Dictionary";
+import Overwiew from "./Overview";
+import Dictionary from "./Dictionary";
+import { StateProvider, getFromLocalStorage } from "../state";
 
 const App: React.FC = () => {
+  const { dictionaries, structures } = getFromLocalStorage();
   return (
-    <>
+    <StateProvider initialState={{ dictionaries, structures }}>
       <Router>
         <header>
           <Link to="/">Dictionary Management</Link>
@@ -19,7 +21,7 @@ const App: React.FC = () => {
           </Route>
         </Switch>
       </Router>
-    </>
+    </StateProvider>
   );
 };
 
