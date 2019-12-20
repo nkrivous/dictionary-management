@@ -1,7 +1,11 @@
 import React, { useCallback, useMemo, useState } from "react";
 import { useParams } from "react-router-dom";
 import { useStateValue } from "../state";
-import { Pair } from "../dictionary/dictionary";
+import DictionaryModel, { Pair } from "../dictionary/dictionary";
+import DuplicatedDictionary from "../dictionary/duplicatedDictionary";
+import ForkedDictionary from "../dictionary/forkedDictionary";
+import ChainedDictionary from "../dictionary/chainedDictionary";
+import CycledDictionary from "../dictionary/cycledDictionary";
 
 const Dictionary: React.FC = () => {
   const { dictionaryId } = useParams();
@@ -52,6 +56,27 @@ const Dictionary: React.FC = () => {
     [structure, dictionaryId, service]
   );
 
+  const checkDictionary = useCallback(() => {
+    if (!dictionaryId) return;
+    const pairs = structure.map(x => ({ key: x.key, value: x.value }));
+    const checks: DictionaryModel[] = [
+      new DuplicatedDictionary(pairs),
+      new ForkedDictionary(pairs),
+      new ChainedDictionary(pairs),
+      new CycledDictionary(pairs)
+    ];
+    const warnings = checks.map(x => x.markWarnings());
+    const newStructure = structure.map(x => {
+      const level = warnings.reduce((curr, next) => {
+        const level =
+          next.get(JSON.stringify({ key: x.key, value: x.value })) || 0;
+        return curr > level ? curr : level;
+      }, 0);
+      return { ...x, warning: level };
+    });
+    service.updateStructure(dictionaryId, newStructure);
+  }, [dictionaryId, structure, service]);
+
   if (!dictionary) {
     return <div>Dictionary is not found</div>;
   }
@@ -86,6 +111,7 @@ const Dictionary: React.FC = () => {
           + Add
         </button>
       </div>
+      <button onClick={checkDictionary}>Check Dictionary</button>
     </section>
   );
 };

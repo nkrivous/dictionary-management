@@ -11,6 +11,7 @@ interface IService {
     dictionaruId: string,
     { id, key, value }: Pair & { id: string }
   ): void;
+  updateStructure(dictionaryId: string, structures: Structure[]): void;
 }
 
 type Dictionary = { id: string; name: string };
@@ -48,7 +49,8 @@ export const StateContext: React.Context<{
     deleteDictionary: id => {},
     addPair: (id, { key, value }) => {},
     deletePair: (did, pid) => {},
-    updatePair: (did, { id, key, value }) => {}
+    updatePair: (did, { id, key, value }) => {},
+    updateStructure: (did, structures) => {}
   }
 });
 
@@ -123,6 +125,16 @@ export const StateProvider: React.FC<IStateProvider> = ({
           [dictionaryId]: structures[dictionaryId].map(x =>
             x.id !== id ? x : { id, key, value }
           )
+        };
+        storeInLocalStorage("structures", newValue);
+        return newValue;
+      });
+    },
+    updateStructure: (dictionaryId, newStructures) => {
+      setStructures(structures => {
+        const newValue = {
+          ...structures,
+          [dictionaryId]: newStructures
         };
         storeInLocalStorage("structures", newValue);
         return newValue;

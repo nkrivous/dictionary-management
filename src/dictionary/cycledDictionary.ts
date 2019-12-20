@@ -8,7 +8,7 @@ enum color {
 
 class CycledDictionary extends Dictionary {
   constructor(pairs: Pair[]) {
-    super(pairs, warning.chain);
+    super(pairs, warning.loop);
   }
 
   private findLoop(
