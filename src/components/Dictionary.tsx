@@ -6,6 +6,7 @@ import DuplicatedDictionary from "../models/duplicatedDictionary";
 import ForkedDictionary from "../models/forkedDictionary";
 import ChainedDictionary from "../models/chainedDictionary";
 import CycledDictionary from "../models/cycledDictionary";
+import "./Dictionary.scss";
 
 const Dictionary: React.FC = () => {
   const { dictionaryId } = useParams();
@@ -28,12 +29,16 @@ const Dictionary: React.FC = () => {
     },
     [newPair]
   );
-  const addPair = useCallback(() => {
-    if (dictionaryId) {
-      service.addPair(dictionaryId, newPair);
-      setNewPair({ key: "", value: "" });
-    }
-  }, [service, newPair, dictionaryId]);
+  const addPair = useCallback(
+    (event: React.FormEvent<HTMLFormElement>) => {
+      event.preventDefault();
+      if (dictionaryId) {
+        service.addPair(dictionaryId, newPair);
+        setNewPair({ key: "", value: "" });
+      }
+    },
+    [service, newPair, dictionaryId]
+  );
   const deletePair = useCallback(
     pairId => () => {
       if (dictionaryId) {
@@ -82,36 +87,80 @@ const Dictionary: React.FC = () => {
   }
 
   return (
-    <section>
-      <h3>Dictionary: {dictionary.name}</h3>
-      <div>
+    <section className="dictionary">
+      <header>Dictionary: {dictionary.name}</header>
+      <div className="dictionary__list">
         {structure.map(x => (
-          <div key={x.id}>
-            <input value={x.key} name="key" onChange={updatePair(x.id)} />
-            <input value={x.value} name="value" onChange={updatePair(x.id)} />
-            <button onClick={deletePair(x.id)}>-</button>
-            <span>{x.warning}</span>
+          <div className="dictionary__item" key={x.id}>
+            <input
+              className="dictionary__item-input"
+              value={x.key}
+              name="key"
+              onChange={updatePair(x.id)}
+            />
+            <input
+              className="dictionary__item-input"
+              value={x.value}
+              name="value"
+              onChange={updatePair(x.id)}
+            />
+            <button
+              className="dictionary__button--delete"
+              onClick={deletePair(x.id)}
+            >
+              x
+            </button>
+            <span
+              className={`dictionary__warning dictionary__warning--${x.warning}`}
+            ></span>
           </div>
         ))}
       </div>
-      <div>
+      <form className="dictionary__form" onSubmit={addPair}>
         <input
+          className="dictionary__input"
           data-testid="key"
           value={newPair.key}
           name="key"
           onChange={updateNewPair}
         />
         <input
+          className="dictionary__input"
           data-testid="value"
           value={newPair.value}
           name="value"
           onChange={updateNewPair}
         />
-        <button data-testid="add" onClick={addPair}>
+        <button className="dictionary__button--add" data-testid="add">
           + Add
         </button>
-      </div>
-      <button onClick={checkDictionary}>Check Dictionary</button>
+      </form>
+      <button className="dictionary__button--add" onClick={checkDictionary}>
+        Check Dictionary
+      </button>
+      <footer>
+        <h6>Instructions</h6>
+        <div className="instruction__item">
+          <span className="dictionary__warning dictionary__warning--0"></span>{" "}
+          No warnings
+        </div>
+        <div className="instruction__item">
+          <span className="dictionary__warning dictionary__warning--1"></span>{" "}
+          Duplicate
+        </div>
+        <div className="instruction__item">
+          <span className="dictionary__warning dictionary__warning--2"></span>{" "}
+          Fork
+        </div>
+        <div className="instruction__item">
+          <span className="dictionary__warning dictionary__warning--3"></span>{" "}
+          Chain
+        </div>
+        <div className="instruction__item">
+          <span className="dictionary__warning dictionary__warning--4"></span>{" "}
+          Cycle
+        </div>
+      </footer>
     </section>
   );
 };

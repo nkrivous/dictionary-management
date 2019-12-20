@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import Overwiew from "./Overview";
 import Dictionary from "./Dictionary";
 import { StateProvider, getFromLocalStorage } from "../state";
+import "./App.scss";
 
 const App: React.FC = () => {
   const { dictionaries, structures } = getFromLocalStorage();
@@ -10,7 +11,9 @@ const App: React.FC = () => {
     <StateProvider initialState={{ dictionaries, structures }}>
       <Router>
         <header>
-          <Link to="/">Dictionary Management</Link>
+          <Link className="app__header" to="/">
+            Dictionary Management
+          </Link>
         </header>
         <Switch>
           <Route path="/:dictionaryId">

@@ -1,0 +1,79 @@
+.dictionary__list {
+  background: #fff;
+  padding-inline-start: 0;
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 25px 50px 0 rgba(0, 0, 0, 0.1);
+  list-style: none;
+  margin: 14px 0;
+}
+
+.dictionary__item {
+  position: relative;
+  margin-left: 5px;
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+  font-size: 24px;
+  border-bottom: 1px solid #ededed;
+}
+
+.dictionary__item-input {
+  font-size: 24px;
+  border: 0;
+  color: darkgrey;
+}
+
+.dictionary__warning {
+  position: absolute;
+  left: -5px;
+  top: 0;
+  bottom: 0;
+  border: 2px solid white;
+}
+
+.dictionary__warning--0 {
+  border-color: lightgreen;
+}
+.dictionary__warning--1 {
+  border-color: lightblue;
+}
+.dictionary__warning--2 {
+  border-color: orange;
+}
+.dictionary__warning--3 {
+  border-color: lightcoral;
+}
+.dictionary__warning--4 {
+  border-color: black;
+}
+
+.dictionary__button--delete {
+  color: coral;
+  justify-self: end;
+  border: none;
+  font-weight: 100;
+  padding: 3px;
+  cursor: pointer;
+}
+.dictionary__button--add {
+  border: 1px solid lightgray;
+  box-shadow: inset 0 -1px 5px 0 rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+}
+.dictionary__form {
+  display: flex;
+  width: 100%;
+  margin-bottom: 10px;
+}
+
+.dictionary__input {
+  flex: 1;
+  font-size: 24px;
+  line-height: 1.4em;
+  border: 0;
+  padding: 6px;
+  box-shadow: inset 0 -1px 5px 0 rgba(0, 0, 0, 0.2);
+}
+
+.instruction__item {
+  position: relative;
+}
