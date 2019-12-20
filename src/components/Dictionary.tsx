@@ -1,11 +1,11 @@
 import React, { useCallback, useMemo, useState } from "react";
 import { useParams } from "react-router-dom";
 import { useStateValue } from "../state";
-import DictionaryModel, { Pair } from "../dictionary/dictionary";
-import DuplicatedDictionary from "../dictionary/duplicatedDictionary";
-import ForkedDictionary from "../dictionary/forkedDictionary";
-import ChainedDictionary from "../dictionary/chainedDictionary";
-import CycledDictionary from "../dictionary/cycledDictionary";
+import DictionaryModel, { Pair } from "../models/dictionary";
+import DuplicatedDictionary from "../models/duplicatedDictionary";
+import ForkedDictionary from "../models/forkedDictionary";
+import ChainedDictionary from "../models/chainedDictionary";
+import CycledDictionary from "../models/cycledDictionary";
 
 const Dictionary: React.FC = () => {
   const { dictionaryId } = useParams();

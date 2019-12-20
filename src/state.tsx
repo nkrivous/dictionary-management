@@ -1,6 +1,6 @@
 import React, { useContext, useState, createContext } from "react";
 import uuidv4 from "uuid/v4";
-import { warning, Pair } from "./dictionary/dictionary";
+import { warning, Pair } from "./models/dictionary";
 
 interface IService {
   addDictionary(name: string): void;
