@@ -31,5 +31,31 @@ test("adds new dictionary", () => {
   const textElement = getByText(value);
 
   expect(textElement).toBeInTheDocument();
-  expect(window.localStorage.setItem.mock.calls.length).toBe(2);
+  expect(localStorage.setItem.mock.calls.length).toBe(2);
+});
+
+test("removes dictionary", async () => {
+  const dictionaryName = "New Dictionary";
+  const { getByText, queryByText, getByTestId } = render(
+    <StateProvider
+      initialState={{
+        dictionaries: [{ id: "1", name: dictionaryName }],
+        structures: { "1": [] }
+      }}
+    >
+      <MemoryRouter initialEntries={["/"]}>
+        <Overwiew />
+      </MemoryRouter>
+    </StateProvider>
+  );
+
+  const dictionaryElement = getByText(dictionaryName);
+  expect(dictionaryElement).toBeInTheDocument();
+
+  const deleteButtonElement = getByTestId("delete-1");
+  deleteButtonElement.click();
+
+  const dictionaryRemovedElement = queryByText(dictionaryName);
+
+  expect(dictionaryRemovedElement).toBeNull();
 });

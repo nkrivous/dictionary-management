@@ -3,8 +3,8 @@ import { useStateValue } from "../state";
 import { Link } from "react-router-dom";
 import "./Overview.scss";
 
-const Overwiew: React.FC = () => {
-  const { dictionaries, service } = useStateValue();
+const NewDictionaryForm: React.FC = () => {
+  const { service } = useStateValue();
   const [name, setName] = useState<string>("");
 
   const updateName = useCallback(
@@ -23,6 +23,24 @@ const Overwiew: React.FC = () => {
     [name, service]
   );
 
+  return (
+    <form className="overview__form" onSubmit={addDictionary}>
+      <input
+        className="overview__input"
+        data-testid="newValue"
+        value={name}
+        onChange={updateName}
+      />
+      <button className="overview__button--add" data-testid="add">
+        + Add
+      </button>
+    </form>
+  );
+};
+
+const Overwiew: React.FC = () => {
+  const { dictionaries, service } = useStateValue();
+
   const deleteDictionary = useCallback(
     (id: string) => () => {
       service.deleteDictionary(id);
@@ -40,6 +58,7 @@ const Overwiew: React.FC = () => {
             </Link>
             <button
               className="overview__button--delete"
+              data-testid={`delete-${x.id}`}
               title="Delete dictionary"
               onClick={deleteDictionary(x.id)}
             >
@@ -48,17 +67,7 @@ const Overwiew: React.FC = () => {
           </li>
         ))}
       </ul>
-      <form className="overview__form" onSubmit={addDictionary}>
-        <input
-          className="overview__input"
-          data-testid="newValue"
-          value={name}
-          onChange={updateName}
-        />
-        <button className="overview__button--add" data-testid="add">
-          + Add
-        </button>
-      </form>
+      <NewDictionaryForm />
     </section>
   );
 };
