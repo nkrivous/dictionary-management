@@ -7,6 +7,10 @@ export type UpdatePair = (
   { id, key, value }: Pair & { id: string }
 ) => void;
 export type DeletePair = (dictionaruId: string, pairId: string) => void;
+export type UpdateStructure = (
+  dictionaryId: string,
+  structures: Structure[]
+) => void;
 
 type Service = {
   addDictionary(name: string): void;
@@ -14,7 +18,7 @@ type Service = {
   addPair(dictionaruId: string, { key, value }: Pair): void;
   deletePair: DeletePair;
   updatePair: UpdatePair;
-  updateStructure(dictionaryId: string, structures: Structure[]): void;
+  updateStructure: UpdateStructure;
 };
 
 type Dictionary = { id: string; name: string };
@@ -116,7 +120,6 @@ export const StateProvider: React.FC<IStateProvider> = ({
               { id, key, value, warnings: [] }
             ]
           };
-          storeInLocalStorage("structures", newValue);
           return newValue;
         });
       },
@@ -128,7 +131,6 @@ export const StateProvider: React.FC<IStateProvider> = ({
               x => x.id !== pairId
             )
           };
-          storeInLocalStorage("structures", newValue);
           return newValue;
         });
       },
@@ -140,7 +142,6 @@ export const StateProvider: React.FC<IStateProvider> = ({
               x.id !== id ? x : { id, key, value, warnings: [] }
             )
           };
-          storeInLocalStorage("structures", newValue);
           return newValue;
         });
       },

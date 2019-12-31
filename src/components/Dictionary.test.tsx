@@ -76,7 +76,7 @@ test("deletes a pair from the dictionary", () => {
   const keyRemovedElement = queryByDisplayValue("key");
   expect(keyRemovedElement).toBeNull();
 
-  expect(localStorage.setItem.mock.calls.length).toBe(1);
+  expect(localStorage.setItem.mock.calls.length).toBe(2);
 });
 
 test("updates a pair in the dictionary", () => {
@@ -88,21 +88,5 @@ test("updates a pair in the dictionary", () => {
   const keyUpdatedElement = getByDisplayValue("New Key");
   expect(keyUpdatedElement).toBeInTheDocument();
 
-  expect(localStorage.setItem.mock.calls.length).toBe(1);
-});
-
-test("validates the dictionary", () => {
-  const { getByTestId } = renderDictionary();
-
-  const itemElement = getByTestId(`item-${PAIR_ID}`);
-  const warningElement = itemElement.querySelector(".dictionary__warning--0");
-  expect(warningElement).toBeNull();
-
-  const validateButtonElement = getByTestId("validate");
-  validateButtonElement.click();
-
-  const warningUpdatedElement = itemElement.querySelector(
-    ".dictionary__warning--0"
-  );
-  expect(warningUpdatedElement).not.toBeNull();
+  expect(localStorage.setItem.mock.calls.length).toBe(2);
 });

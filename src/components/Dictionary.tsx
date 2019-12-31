@@ -2,11 +2,8 @@ import React, { useCallback, useMemo, useState } from "react";
 import { useParams } from "react-router-dom";
 import classNames from "classnames";
 import { useStateValue, Structure, UpdatePair, DeletePair } from "../state";
-import DictionaryModel, { Pair, warning } from "../models/dictionary";
-import DuplicatedDictionary from "../models/duplicatedDictionary";
-import ForkedDictionary from "../models/forkedDictionary";
-import ChainedDictionary from "../models/chainedDictionary";
-import CycledDictionary from "../models/cycledDictionary";
+import { Pair } from "../models/dictionary";
+import useValidation from "../hooks/useValidation";
 import "./Dictionary.scss";
 
 const NewPairForm: React.FC = () => {
@@ -149,30 +146,11 @@ const Dictionary: React.FC = () => {
     if (!dictionaryId) return [];
     return structures[dictionaryId];
   }, [dictionaryId, structures]);
-
-  const validateDictionary = useCallback(() => {
-    if (!dictionaryId) return;
-    const pairs = structure.map(x => ({ key: x.key, value: x.value }));
-    const checks: DictionaryModel[] = [
-      new DuplicatedDictionary(pairs),
-      new ForkedDictionary(pairs),
-      new ChainedDictionary(pairs),
-      new CycledDictionary(pairs)
-    ];
-    const warnings = checks.map(x => x.markWarnings());
-    const newStructure = structure.map(x => {
-      const levels = warnings.reduce<warning[]>((curr, next) => {
-        const level = next.get(JSON.stringify({ key: x.key, value: x.value }));
-        if (level) {
-          curr.push(level);
-        }
-
-        return curr;
-      }, []);
-      return { ...x, warnings: levels.length ? levels : [0] };
-    });
-    service.updateStructure(dictionaryId, newStructure);
-  }, [dictionaryId, structure, service]);
+  const { isValidating } = useValidation(
+    dictionaryId,
+    structure,
+    service.updateStructure
+  );
 
   if (!dictionary) {
     return <div>Dictionary is not found</div>;
@@ -192,13 +170,7 @@ const Dictionary: React.FC = () => {
         ))}
       </div>
       <NewPairForm />
-      <button
-        className="dictionary__button--add"
-        data-testid="validate"
-        onClick={validateDictionary}
-      >
-        Validate Dictionary
-      </button>
+      {isValidating && <span>Validation...</span>}
       <footer>
         <DictionaryWarnings />
       </footer>
