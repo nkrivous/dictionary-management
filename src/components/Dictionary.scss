@@ -17,6 +17,7 @@
 }
 
 .dictionary__item-input {
+  width: 100%;
   font-size: 24px;
   border: 0;
   color: darkgrey;
@@ -52,6 +53,7 @@
 
 .dictionary__button--delete {
   color: coral;
+  background-color: transparent;
   justify-self: end;
   border: none;
   font-weight: 100;
@@ -76,6 +78,7 @@
   border: 1px solid lightgray;
   padding: 6px;
   width: 100%;
+  margin-right: 2px;
 }
 
 .instruction__item {
