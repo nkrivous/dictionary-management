@@ -10,7 +10,9 @@ function renderDictionary() {
   const initialState = {
     dictionaries: [{ id: DICTIONARY_ID, name: "Dictionary" }],
     structures: {
-      [DICTIONARY_ID]: [{ id: PAIR_ID, key: "key", value: "value" }]
+      [DICTIONARY_ID]: [
+        { id: PAIR_ID, key: "key", value: "value", warnings: [] }
+      ]
     }
   };
   return render(

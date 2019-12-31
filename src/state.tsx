@@ -22,7 +22,7 @@ export type Structure = {
   id: string;
   key: string;
   value: string;
-  warning?: warning;
+  warnings: warning[];
 };
 
 export const storeInLocalStorage = (name: string, object: Object) => {
@@ -111,7 +111,10 @@ export const StateProvider: React.FC<IStateProvider> = ({
         setStructures(structures => {
           const newValue = {
             ...structures,
-            [dictionaryId]: [...structures[dictionaryId], { id, key, value }]
+            [dictionaryId]: [
+              ...structures[dictionaryId],
+              { id, key, value, warnings: [] }
+            ]
           };
           storeInLocalStorage("structures", newValue);
           return newValue;
@@ -134,7 +137,7 @@ export const StateProvider: React.FC<IStateProvider> = ({
           const newValue = {
             ...structures,
             [dictionaryId]: structures[dictionaryId].map(x =>
-              x.id !== id ? x : { id, key, value }
+              x.id !== id ? x : { id, key, value, warnings: [] }
             )
           };
           storeInLocalStorage("structures", newValue);

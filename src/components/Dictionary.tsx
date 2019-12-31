@@ -2,7 +2,7 @@ import React, { useCallback, useMemo, useState } from "react";
 import { useParams } from "react-router-dom";
 import classNames from "classnames";
 import { useStateValue, Structure, UpdatePair, DeletePair } from "../state";
-import DictionaryModel, { Pair } from "../models/dictionary";
+import DictionaryModel, { Pair, warning } from "../models/dictionary";
 import DuplicatedDictionary from "../models/duplicatedDictionary";
 import ForkedDictionary from "../models/forkedDictionary";
 import ChainedDictionary from "../models/chainedDictionary";
@@ -100,12 +100,17 @@ const DictionaryItem: React.FC<IDictionaryItemProps> = React.memo(
         >
           x
         </button>
-        <span
-          className={classNames(
-            "dictionary__warning",
-            item.warning !== undefined && `dictionary__warning--${item.warning}`
-          )}
-        ></span>
+        <div className="dictionary__warning-wrapper">
+          {(item.warnings || []).map(x => (
+            <span
+              key={x}
+              className={classNames(
+                "dictionary__warning",
+                `dictionary__warning--${x}`
+              )}
+            ></span>
+          ))}
+        </div>
       </div>
     );
   }
@@ -114,21 +119,21 @@ const DictionaryItem: React.FC<IDictionaryItemProps> = React.memo(
 const DictionaryWarnings: React.FC = () => (
   <>
     <h6>Instructions</h6>
-    <div className="instruction__item">
+    <div className="instruction__item dictionary__warning-wrapper">
       <span className="dictionary__warning dictionary__warning--0"></span> No
       warnings
     </div>
-    <div className="instruction__item">
+    <div className="instruction__item dictionary__warning-wrapper">
       <span className="dictionary__warning dictionary__warning--1"></span>{" "}
       Duplicate
     </div>
-    <div className="instruction__item">
+    <div className="instruction__item dictionary__warning-wrapper">
       <span className="dictionary__warning dictionary__warning--2"></span> Fork
     </div>
-    <div className="instruction__item">
+    <div className="instruction__item dictionary__warning-wrapper">
       <span className="dictionary__warning dictionary__warning--3"></span> Chain
     </div>
-    <div className="instruction__item">
+    <div className="instruction__item dictionary__warning-wrapper">
       <span className="dictionary__warning dictionary__warning--4"></span> Cycle
     </div>
   </>
@@ -156,12 +161,15 @@ const Dictionary: React.FC = () => {
     ];
     const warnings = checks.map(x => x.markWarnings());
     const newStructure = structure.map(x => {
-      const level = warnings.reduce((curr, next) => {
-        const level =
-          next.get(JSON.stringify({ key: x.key, value: x.value })) || 0;
-        return curr > level ? curr : level;
-      }, 0);
-      return { ...x, warning: level };
+      const levels = warnings.reduce<warning[]>((curr, next) => {
+        const level = next.get(JSON.stringify({ key: x.key, value: x.value }));
+        if (level) {
+          curr.push(level);
+        }
+
+        return curr;
+      }, []);
+      return { ...x, warnings: levels.length ? levels : [0] };
     });
     service.updateStructure(dictionaryId, newStructure);
   }, [dictionaryId, structure, service]);

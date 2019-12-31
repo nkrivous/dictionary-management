@@ -22,28 +22,32 @@
   color: darkgrey;
 }
 
-.dictionary__warning {
+.dictionary__warning-wrapper {
+  display: flex;
   position: absolute;
-  left: -5px;
+  left: -6px;
   top: 0;
   bottom: 0;
-  border: 2px solid white;
+}
+
+.dictionary__warning {
+  width: 4px;
 }
 
 .dictionary__warning--0 {
-  border-color: lightgreen;
+  background-color: lightgreen;
 }
 .dictionary__warning--1 {
-  border-color: lightblue;
+  background-color: lightblue;
 }
 .dictionary__warning--2 {
-  border-color: orange;
+  background-color: bisque;
 }
 .dictionary__warning--3 {
-  border-color: lightcoral;
+  background-color: lightcoral;
 }
 .dictionary__warning--4 {
-  border-color: black;
+  background-color: black;
 }
 
 .dictionary__button--delete {
