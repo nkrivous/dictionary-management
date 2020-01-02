@@ -1,8 +1,8 @@
 import React from "react";
 import { render, fireEvent } from "@testing-library/react";
-import Overwiew from "./Overview";
+import Overwiew from "../../components/Overview";
 import { MemoryRouter } from "react-router-dom";
-import { StateProvider } from "../state";
+import { StateProvider } from "../../state";
 
 test("renders Overview component", () => {
   const { getByText } = render(

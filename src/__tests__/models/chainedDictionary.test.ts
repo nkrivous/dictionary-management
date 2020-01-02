@@ -1,4 +1,4 @@
-import ChainedDictionary from "./chainedDictionary";
+import ChainedDictionary from "../../models/chainedDictionary";
 
 it("marks simple chain", () => {
   const dictionary = new ChainedDictionary([

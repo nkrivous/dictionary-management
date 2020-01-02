@@ -1,4 +1,4 @@
-import DuplicatedDictionary from "./duplicatedDictionary";
+import DuplicatedDictionary from "../../models/duplicatedDictionary";
 
 it("marks duplicate", () => {
   const dictionary = new DuplicatedDictionary([

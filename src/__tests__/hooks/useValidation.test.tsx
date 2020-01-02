@@ -1,7 +1,7 @@
 import { renderHook } from "@testing-library/react-hooks";
-import useValidation from "./useValidation";
-import { warning } from "../models/dictionary";
-import { Structure } from "../state";
+import useValidation from "../../hooks/useValidation";
+import { warning } from "../../models/dictionary";
+import { Structure } from "../../state";
 
 const updateStructure = jest.fn();
 

@@ -1,4 +1,4 @@
-import ForkedDictionary from "./forkedDictionary";
+import ForkedDictionary from "../../models/forkedDictionary";
 
 it("marks simple fork", () => {
   const dictionary = new ForkedDictionary([

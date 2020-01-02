@@ -1,4 +1,4 @@
-import CycledDictionary from "./cycledDictionary";
+import CycledDictionary from "../../models/cycledDictionary";
 
 it("marks tied loops", () => {
   const dictionary = new CycledDictionary([

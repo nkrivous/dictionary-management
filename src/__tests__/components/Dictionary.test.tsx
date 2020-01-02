@@ -1,8 +1,8 @@
 import React from "react";
 import { render, fireEvent } from "@testing-library/react";
-import Dictionary from "./Dictionary";
+import Dictionary from "../../components/Dictionary";
 import { MemoryRouter, Route } from "react-router-dom";
-import { StateProvider } from "../state";
+import { StateProvider } from "../../state";
 
 const DICTIONARY_ID = "dictionaryId";
 const PAIR_ID = "pairId";
