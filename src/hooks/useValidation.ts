@@ -15,7 +15,7 @@ const useValidation = (
   const [isValidating, setIsValidating] = useState(false);
 
   useEffect(() => {
-    if (dictionaryId === undefined) return;
+    if (dictionaryId === undefined || dictionary === undefined) return;
     setIsValidating(true);
     const pairs = dictionary.map(x => ({ key: x.key, value: x.value }));
     const checks: DictionaryModel[] = [

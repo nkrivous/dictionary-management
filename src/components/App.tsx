@@ -1,5 +1,5 @@
 import React from "react";
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import { HashRouter as Router, Switch, Route, Link } from "react-router-dom";
 import Overwiew from "./Overview";
 import Dictionary from "./Dictionary";
 import { StateProvider, getFromLocalStorage } from "../state";
