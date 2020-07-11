@@ -1,0 +1,22 @@
+{
+  "files": {
+    "main.css": "/dictionary-management/static/css/main.0ef745ae.chunk.css",
+    "main.js": "/dictionary-management/static/js/main.c448f281.chunk.js",
+    "main.js.map": "/dictionary-management/static/js/main.c448f281.chunk.js.map",
+    "runtime-main.js": "/dictionary-management/static/js/runtime-main.182e8d0c.js",
+    "runtime-main.js.map": "/dictionary-management/static/js/runtime-main.182e8d0c.js.map",
+    "static/js/2.ed828632.chunk.js": "/dictionary-management/static/js/2.ed828632.chunk.js",
+    "static/js/2.ed828632.chunk.js.map": "/dictionary-management/static/js/2.ed828632.chunk.js.map",
+    "index.html": "/dictionary-management/index.html",
+    "precache-manifest.2c4fcc780828153c10b346c0c3880ecf.js": "/dictionary-management/precache-manifest.2c4fcc780828153c10b346c0c3880ecf.js",
+    "service-worker.js": "/dictionary-management/service-worker.js",
+    "static/css/main.0ef745ae.chunk.css.map": "/dictionary-management/static/css/main.0ef745ae.chunk.css.map",
+    "static/js/2.ed828632.chunk.js.LICENSE": "/dictionary-management/static/js/2.ed828632.chunk.js.LICENSE"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.182e8d0c.js",
+    "static/js/2.ed828632.chunk.js",
+    "static/css/main.0ef745ae.chunk.css",
+    "static/js/main.c448f281.chunk.js"
+  ]
+}
